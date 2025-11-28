@@ -1,5 +1,4 @@
 -- this file is for defining the keys opiton using the which key plugin
--- this file is for defining the keys option using the which key plugin
 local which_key = require("which-key")
 
 -- Use the new spec format
