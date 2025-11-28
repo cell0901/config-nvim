@@ -5,7 +5,7 @@ This is the config and plugins i use for my nvim
 2. Copy the contents to `~/.config/nvim` folder
 
 ```
-cp -r config-nvim/. ~./config/nvim
+cp -r config-nvim/. ~/.config/nvim
 ```
 
 **Remaps** <br>
