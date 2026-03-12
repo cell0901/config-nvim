@@ -1,9 +1,13 @@
 -- created this file for defalut settings for nvim
 vim.opt.clipboard = "unnamedplus" -- -- use system keyboard for yank
 
+-- setting the :bp and :bn command to move faster between files
+vim.keymap.set("n", "<C-p>", ":bprevious<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-n>", ":bnext<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>q", "<cmd>bd<CR>", { desc = "Close Buffer" }) -- to close the buffer opened using <leader>q or the files opened quickly
+
 vim.opt.nu = true                 -- set line numbers -- set line numbers
 vim.opt.relativenumber = true     -- use relative line numbers
-
 
 -- set tab size to 2 spaces
 vim.opt.tabstop = 2
@@ -20,3 +24,11 @@ vim.opt.incsearch = true -- incremental search
 
 
 vim.opt.termguicolors = true
+
+--  burWritePre for auto formatter
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function()
+    vim.lsp.buf.format()
+  end,
+})
