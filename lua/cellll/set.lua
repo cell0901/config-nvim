@@ -6,8 +6,8 @@ vim.keymap.set("n", "<C-p>", ":bprevious<CR>", { noremap = true, silent = true }
 vim.keymap.set("n", "<C-n>", ":bnext<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>q", "<cmd>bd<CR>", { desc = "Close Buffer" }) -- to close the buffer opened using <leader>q or the files opened quickly
 
-vim.opt.nu = true                 -- set line numbers -- set line numbers
-vim.opt.relativenumber = true     -- use relative line numbers
+vim.opt.nu = true                                                          -- set line numbers -- set line numbers
+vim.opt.relativenumber = true                                              -- use relative line numbers
 
 -- set tab size to 2 spaces
 vim.opt.tabstop = 2
@@ -28,7 +28,11 @@ vim.opt.termguicolors = true
 --  burWritePre for auto formatter
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
-  callback = function()
+  callback = function(args)
+    if vim.bo[args.buf].filetype == "prisma" then
+      return
+    end
+
     vim.lsp.buf.format()
   end,
 })
