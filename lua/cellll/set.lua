@@ -29,7 +29,9 @@ vim.opt.termguicolors = true
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function(args)
-    if vim.bo[args.buf].filetype == "prisma" then
+    local ft = vim.bo[args.buf].filetype
+
+    if ft == "prisma" or ft == "rust" then
       return
     end
 
