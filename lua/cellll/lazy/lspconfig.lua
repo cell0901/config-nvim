@@ -18,7 +18,8 @@ return {
           "ts_ls",         -- ts/js
           "rust_analyzer", -- rust
           "prismals",      -- prisma
-          "jsonls"         -- JSON
+          "jsonls",        -- JSON
+          "cssls",         -- css
         },
       })
 
@@ -42,6 +43,22 @@ return {
         },
       }
 
+      -- Fix cssls: suppress the MethodNotFound errors
+      vim.lsp.config.cssls = {
+        capabilities = capabilities,
+        handlers = {
+          -- css-lsp sends/receives some requests it doesn't handle,
+          -- this silences the MethodNotFound spam
+          ["$/cancelRequest"] = function() end,
+        },
+        settings = {
+          css  = { validate = true },
+          scss = { validate = true },
+          less = { validate = true },
+        },
+      }
+
+
       -- Enable the configured servers
       vim.lsp.enable({
         "lua_ls",
@@ -49,6 +66,7 @@ return {
         "ts_ls",
         "rust_analyzer",
         "prismals",
+        "cssls", -- add this
       })
 
       -- Keymaps
