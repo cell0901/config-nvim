@@ -38,3 +38,5 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     vim.lsp.buf.format()
   end,
 })
+
+vim.keymap.set('n', '<Esc>', '<Esc>:noh<CR>', { silent = true })
