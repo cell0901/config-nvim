@@ -15,7 +15,7 @@ return {
       ["<C-b>"] = { "scroll_documentation_up", "fallback" },
       ["<C-f>"] = { "scroll_documentation_down", "fallback" },
       ["<C-e>"] = { "cancel", "fallback" },
-      ["<CR>"] = { "accept", "fallback" },
+      ["<CR>"] = { "select_and_accept", "fallback" },
       ["<Tab>"] = { "select_next", "fallback" },
     },
     snippets = {
@@ -26,6 +26,9 @@ return {
     },
     completion = {
       accept = {
+        -- Rust/TypeScript servers can need more than Blink's 100 ms default
+        -- to resolve the selected completion, especially just after startup.
+        resolve_timeout_ms = 500,
         auto_brackets = { enabled = true }, -- replaces nvim-autopairs cmp integration
       },
       documentation = {                     -- to show small doc buffer window while auto suggestion. of the function descrition

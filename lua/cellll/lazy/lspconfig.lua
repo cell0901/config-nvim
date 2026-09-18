@@ -28,19 +28,21 @@ return {
       -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-
-      -- Configure servers using the new vim.lsp.config API
       vim.lsp.config("*", {
         capabilities = capabilities,
       })
 
       -- Server-specific settings
       vim.lsp.config.rust_analyzer = {
-        capabilities = capabilities,
+        -- Use the native bundle structure to pass configurations cleanly
         settings = {
           ["rust-analyzer"] = {
             check = {
-              command = "clippy",
+              command = "check",
+            },
+            cachePriming = {
+              enable = true,
+              numThreads = 2, -- Keep navigation data warm without saturating the CPU.
             },
           },
         },
@@ -48,7 +50,6 @@ return {
 
       -- Fix cssls: suppress the MethodNotFound errors
       vim.lsp.config.cssls = {
-        capabilities = capabilities,
         handlers = {
           -- css-lsp sends/receives some requests it doesn't handle,
           -- this silences the MethodNotFound spam
@@ -69,6 +70,7 @@ return {
         "ts_ls",
         "rust_analyzer",
         "prismals",
+        "jsonls",
         "cssls", -- add this
       })
 
